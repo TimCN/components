@@ -30,20 +30,14 @@
   text-align:center;
   margin:2px 1px;
 }
-/*.calendarDateCell:hover > .dateClassHover{
-  background-color:#ba191a;
-  visibility: visible;
-  color:#ffffff;
-
-}*/
 .calendarSpecialDate{
   color:#d5bdbd;
   background-color:#964848;
 
 }
 .calendarSpecialDate:hover{
-  /*background-color:#ba191a;
-  color:#ffffff;*/
+  background-color:#ba191a;
+  color:#ffffff;
 
 }
 .calendarSpecialDate:hover > .dateClassHover{
