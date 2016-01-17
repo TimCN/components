@@ -1,57 +1,69 @@
-body{
-  background: rgba(255,255,255,1);
-}
 .calendarTable{
-  position:fixed;
-  width:25em;
-  height: 450px;
   border:2px solid #bc191a;
   background-color: #242424;
 }
-.calendarMonthTH{
-  background: rgba(0,0,0,0.5);
-  width:100%;
-  height:63px;
-}
 .calendarMonthCell{
   text-align:center;
-  width:6.05em;
   float:left;
-  height: 100%;
-  margin-right:0.2em;
+  margin-right:3px;
   color:#a9a6a6;
   background-color: #bc191a;
-}
-.lastCalendarDayCell{
-  width:6.25em;
-  margin-right:0px;
 }
 .calendarMonthTHActive{
   color:#ffffff;
 }
-.calendarDayTH{
-  width:100%;
-  height:52px;
+.calendarRow{
+  border-bottom:1px solid #3a3a3a;
+  margin: 0 10px;
 }
-.calendarDayCell{
-  float:left;
-  width:14.285%;
-  text-align:center;
-  color:#ffffff;
-  border-bottom:1px solid white;
+.calendarRowMargin{
+  margin: 0 10px;
+}
+.calendarCell{
+    float:left;
+    text-align:center;
+    color:#ffffff;
 }
 .calendarDateCell{
   color:#c5c5c5;
   float:left;
-  width:14.285%;
   text-align:center;
-  margin-top:1em;
-  border-bottom: 1px solid white;
+  margin:2px 1px;
 }
-.LastCalendarDateCell{
-  border-bottom: 0px;
+/*.calendarDateCell:hover > .dateClassHover{
+  background-color:#ba191a;
+  visibility: visible;
+  color:#ffffff;
+
+}*/
+.calendarSpecialDate{
+  color:#d5bdbd;
+  background-color:#964848;
+
 }
-#calendarDateRow{
-  height:335px;
-  width:auto;
+.calendarSpecialDate:hover{
+  /*background-color:#ba191a;
+  color:#ffffff;*/
+
+}
+.calendarSpecialDate:hover > .dateClassHover{
+  visibility: visible;
+}
+.dateClassHover{
+  visibility: hidden;
+  position:absolute;
+  /*background:none;*/
+  background-color:#ba191a;
+  color:#ffffff;
+}
+.dateClassHover:after{
+  border: solid transparent;
+  content: ' ';
+  height: 0;
+  left: 85%;
+  top:100%;
+  position: absolute;
+  width: 0;
+  border-width: 7px;
+  border-top-color: #ba191a;
 }
