@@ -227,34 +227,29 @@
   function getHoverDivHTML(currentDate,dateWidth, dateHeight){
     // debugger;
     var arr = currentDate.getFullYear() + "-" + (currentDate.getMonth()+1) + "-" + currentDate.getDate();
+    var containerHeight =height*0.33;
     var eventsHTML="";
     if(SPECIAL_DATES[arr]){
       var events = SPECIAL_DATES[arr];
       var width= dateWidth*4,
           height= dateHeight*1.5;
-      eventsHTML = '<div style="width:' + width + 'px;height:' + height + 'px;top:-' + ( dateHeight * 1.7 ) + 'px;left:-' + ( dateWidth * 3 ) + 'px;" class="dateClassHover">'
+      var containerHeight =height*0.33;
+      // eventsHTML = '<div style="width:' + width + 'px;height:' + height + 'px;top:-' + ( dateHeight * 1.7 ) + 'px;left:-' + ( dateWidth * 3 ) + 'px;" class="dateClassHover">'
       var title ='<div style="margin-bottom:3px;padding-left:10px;border-bottom:red solid 2px;width:'+(width-10)+'px;height:'+(height*0.33)+'px;text-align:left;line-height:'+(height*0.33)+'px;">'
                 + (currentDate.getMonth()+1) + '月' + currentDate.getDate() + '号'
                 +'</div>';
 
       var contents = "";
       for(var i = 0; i < events.length; i++){
-        contents+='<div style="padding-left:10px;solid 2px;width:'+(width-10)+'px;height:'+(height*0.2)+'px;text-align:left;line-height:'+(height*0.2)+'px;">'
+        contents+='<div style="padding-left:10px;solid 2px;width:'+(width-10)+'px;height:'+(height*0.3)+'px;text-align:left;line-height:'+(height*0.3)+'px;">'
                  + events[i]
                  + '</div>';
+        containerHeight += height*0.3;
       }
-      eventsHTML += title + contents + '</div>';
+      containerHeight += height*0.1;
+      var containerDiv='<div style="width:' + width + 'px;height:' + containerHeight + 'px;top:-' + ( containerHeight + 13 ) + 'px;left:-' + ( dateWidth * 3 ) + 'px;" class="dateClassHover">'
+      eventsHTML = containerDiv +title + contents + '</div>';
     }
-    // var width= dateWidth*4,
-    //     height= dateHeight*1.5;
-    // var html = '<div style="width:'+(dateWidth*4)+'px;height:'+(dateHeight*1.5)+'px;top:-'+(dateHeight*1.6)+'px;left:-'+(dateWidth*3)+'px;" class="dateClassHover">';
-    // var title ='<div style="padding-left:10px;border-bottom:red solid 2px;width:'+(width-10)+'px;height:'+(height*0.33)+'px;text-align:left;line-height:'+(height*0.33)+'px;">1月14号</div>';
-    // var content1 ='<div style="padding-left:10px;solid 2px;width:'+(width-10)+'px;height:'+(height*0.2)+'px;text-align:left;line-height:'+(height*0.2)+'px;">17:00 EDG vs RNG</div>';
-    // var content2 ='<div style="padding-left:10px;solid 2px;width:'+(width-10)+'px;height:'+(height*0.2)+'px;text-align:left;line-height:'+(height*0.2)+'px;">19:00 VG vs OMG</div>';
-    // // var content3 ='<div style="padding-left:10px;solid 2px;width:'+(width-10)+'px;height:'+(height*0.2)+'px;text-align:left;line-height:'+(height*0.2)+'px;">19:00 VG vs OMG</div>';
-    // html  += title+content1+'</div>';
-    // html  += title+content1+content2+'</div>';
-    // html  += title+content1+content2+content3+'</div>';
 
     return eventsHTML;
   }
