@@ -126,6 +126,7 @@
 
     containerWidth = containerWidth - 20;
     var cellWidth  = containerWidth / 7;
+    cellWidth = parseInt(cellWidth);
     var innerHTML ='<div class="' + rowClass + '" style="width:'+containerWidth+'px;height:'+(containerHeight-1)+'px;"><div style="height:' + (containerHeight-1) + 'px;width:' + containerWidth + 'px;">';
     var styles = "width:"+cellWidth+"px;height:" + (containerHeight-1) +"px;line-height:"+ (containerHeight-1) +"px;";
     for(var i = 0; i < 7; i++){
@@ -160,7 +161,7 @@
     var dateHeight = (dateContainerHeight-lines + 1) / lines;
     //日期单位宽度
     var dateWidth  = (dateContainerWidth-20-14) / 7;
-
+    dateWidth = parseInt(dateWidth);
     var dateHTML ='',
         rowStyles;
     var currentDate = new Date(date.getFullYear(),date.getMonth(),1);
