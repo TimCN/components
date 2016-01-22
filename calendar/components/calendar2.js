@@ -358,10 +358,16 @@
 
     var monthHTML = drawMonthHTML( width, height* 0.14, startDate, endDate, activeMonth ); //月份是总高度的14%
 
-    var html = drawDIV(monthHTML, "calendarRootContainer", null,"container");
+    var dayHTML = drawDayHTML(width, height*0.11); //星期高度是11%
+
+
+    var innerHTML = monthHTML + dayHTML;
+    var html = drawDIV(innerHTML, "calendarRootContainer", null,"container");
 
     document.getElementById(id).innerHTML  = html;
   }
+
+
 
 
 
@@ -431,6 +437,58 @@
 
     return html;
   }
+
+
+  function drawDayHTML(width, height) {
+
+    var innerHTML = "";
+
+    var cellClass = "dayCell";
+
+    var cellWidth = (width-20) / 7
+
+    var cellStyle = "width:" + cellWidth + "px;height:" + (height - 1) +"px;line-height:"+ (height - 1) +"px;";
+
+
+    for(var i = 0; i < 7; i++) {
+      innerHTML += drawDIV(WEEKHEADERS[i],cellClass,cellStyle)
+    }
+
+
+
+    var style='width:'+(width-20)+'px;height:'+height+'px;';
+    var html = drawDIV(innerHTML,"dayRow",style)
+
+    return html;
+
+
+  }
+
+  function drawDateHTML(width, height) {
+
+    var innerHTML = "";
+
+    var cellClass = "dayCell";
+
+    var cellWidth = (width-20) / 7
+
+    var cellStyle = "width:" + cellWidth + "px;height:" + (height - 1) +"px;line-height:"+ (height - 1) +"px;";
+
+
+    for(var i = 0; i < 7; i++) {
+      innerHTML += drawDIV(WEEKHEADERS[i],cellClass,cellStyle)
+    }
+
+
+
+    var style='width:'+(width-20)+'px;height:'+height+'px;';
+    var html = drawDIV(innerHTML,"dayRow",style)
+
+    return html;
+
+
+  }
+
 
 
   /*创建单元格

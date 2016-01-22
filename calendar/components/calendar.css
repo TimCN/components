@@ -4,18 +4,18 @@
   height: inherit;
   box-sizing: border-box;
   border:2px solid #bc191a;
-  /*background-color: #242424;*/
+  background-color: #242424;
 }
 /******/
 
 /*月份*/
 /*顶部月份行的样式*/
 .monthRow{
-  background-color: rgba(0,0,0,0.2);
+  /*background-color: rgba(0,0,0,0.2);*/
 }
 /*每一个月份的样式*/
 .monthCell{
-  background-color: rgba(0,0,0,0.5);
+  /*background-color: rgba(0,0,0,0.5);*/
   text-align:center;
   float:left;
   margin-right:3px;
@@ -28,6 +28,20 @@
 }
 /*******/
 
+/*星期部分的样式*/
+
+/*星期行的样式*/
+.dayRow{
+  border-bottom:1px solid #3a3a3a;
+  /*background-color: rgba(0,0,0,0.5);*/
+  margin: 0 10px;
+}
+.dayCell{
+  float:left;
+  text-align:center;
+  color:#ffffff;
+}
+/**************/
 
 .calendarTable{
   border:2px solid #bc191a;

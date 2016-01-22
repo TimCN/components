@@ -310,7 +310,7 @@
     height = initHeight-4;
 
 
-    var style = 'style="width:' + width + 'px;height:' + height + 'px;"';
+    var style = 'style="width:' + initWidth + 'px;height:' + initHeight + 'px;"';
 
     var tableBegin            = '<div ' + style + ' class="calendarTable">';
     var monthHTML             = setupMonth(startDate, endDate, currentDate, monthTHClass, monthTHActiveClass, monthPrefix, width, (height*0.14));//h:14%
