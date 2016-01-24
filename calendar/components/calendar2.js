@@ -354,14 +354,16 @@
     var width = node.clientWidth - 4;
 
     //高度，减去4px的边框
-    var height = node.clientHeight;
+    var height = node.clientHeight - 4;
 
     var monthHTML = drawMonthHTML( width, height* 0.14, startDate, endDate, activeMonth ); //月份是总高度的14%
 
     var dayHTML = drawDayHTML(width, height*0.11); //星期高度是11%
 
+    var dateHTML = drawDateHTML(width, height*0.75, activeMonth); //星期高度是75%
 
-    var innerHTML = monthHTML + dayHTML;
+
+    var innerHTML = monthHTML + dayHTML + dateHTML;
     var html = drawDIV(innerHTML, "calendarRootContainer", null,"container");
 
     document.getElementById(id).innerHTML  = html;
@@ -427,13 +429,13 @@
         innerStyle += 'height:'+ height +'px;';
         innerStyle += 'line-height:'+ height +'px;';
 
-    var style = 'width:'+ width +'px;';
-        style += 'height:'+ height +'px;';
+    var styles = 'width:'+ width +'px;';
+        styles += 'height:'+ height +'px;';
 
 
 
 
-    var html = drawDIV(innerHTML, "monthRow", style);
+    var html = drawDIV(innerHTML, "monthRow", styles);
 
     return html;
   }
@@ -456,36 +458,190 @@
 
 
 
-    var style='width:'+(width-20)+'px;height:'+height+'px;';
-    var html = drawDIV(innerHTML,"dayRow",style)
+    var styles='width:'+(width-20)+'px;height:'+height+'px;';
+    var html = drawDIV(innerHTML,"dayRow",styles)
 
     return html;
 
 
   }
 
-  function drawDateHTML(width, height) {
+  function drawDateHTML(width, height, date) {
 
-    var innerHTML = "";
+    var innerHTML = drawDateRowsHTML(width, height, date);
 
-    var cellClass = "dayCell";
-
-    var cellWidth = (width-20) / 7
-
-    var cellStyle = "width:" + cellWidth + "px;height:" + (height - 1) +"px;line-height:"+ (height - 1) +"px;";
-
-
-    for(var i = 0; i < 7; i++) {
-      innerHTML += drawDIV(WEEKHEADERS[i],cellClass,cellStyle)
-    }
-
-
-
-    var style='width:'+(width-20)+'px;height:'+height+'px;';
-    var html = drawDIV(innerHTML,"dayRow",style)
+    var styles='width:'+(width-20)+'px;height:'+height+'px;';
+    var html = drawDIV(innerHTML,"dateContainer",styles)
 
     return html;
 
+
+  }
+
+  function drawDateRowsHTML(width, height, date) {
+
+
+
+    var firstDate = new Date(date.getFullYear(),date.getMonth(),1);
+    var lastDate  = new Date(date.getFullYear(),date.getMonth()+1,1);
+        lastDate  = new Date(lastDate.setDate(lastDate.getDate()-1));
+    var offsetDates = WEEK[firstDate.getDay()] - 1;
+    var rows = Math.ceil((lastDate.getDate() +offsetDates) / 7);
+
+    //日期单行的高度
+    var height = height / rows;
+
+    //计算出第一个单元格是多少号
+    var iteratorDate = new Date(firstDate.setDate(firstDate.getDate()-offsetDates));
+
+
+
+
+
+
+
+
+
+    var html="";
+
+    var klass = "dateRow";
+
+    var styles = "width:ingerit;height:" + height +"px;";
+
+    for(var i = 0; i < rows; i++) {
+
+      var innerHTML = "";
+
+      var cellClass = "dateCell";
+
+      var cellWidth = (width-20) / 7
+
+      var cellStyle = "width:" + cellWidth + "px;height:" + (height - 1) +"px;line-height:"+ (height - 1) +"px;";
+
+
+      for(var j = currentDay; j < 8; j++) {
+
+          styles = "position:relative;width:"+dateWidth+"px;height:" + (dateHeight-4) +"px;line-height:"+ dateHeight +"px;";
+
+          var hoverDivHTML ="";
+          var classes = dateClass;
+          if(currentDate.getMonth()!=date.getMonth()){
+
+            //不是当前月份的日期
+            styles += "background:none;color:#5c5c5c;"
+
+          } else {
+
+            hoverDivHTML=getHoverDivHTML(currentDate,dateWidth, dateHeight);
+            if(hoverDivHTML){
+              classes = "calendarSpecialDate " + classes;
+            }
+          }
+
+
+
+          dateHTML  +='<div style="' + styles + '" class="' + classes + '">'
+                    +'<div>'
+                    +     currentDate.getDate()
+                    +'</div>'
+                    + hoverDivHTML
+                    +' </div>';
+
+          currentDate.setDate(currentDate.getDate()+1);
+      }
+
+
+
+
+
+
+      if(i == rows - 1){
+
+        styles +="border-bottom:none;";
+
+      }
+      html += drawDIV(innerHTML,klass,styles)
+    }
+
+    return html;
+
+  }
+
+
+  function getDatesHTML (date,dateContainerWidth,dateContainerHeight,dateClass,rowClass) {
+    //计算出单个的高度
+    var firstDate = new Date(date.getFullYear(),date.getMonth(),1,2);
+    var lastDate  = new Date(date.getFullYear(),date.getMonth()+1,1,2);
+        lastDate  = new Date(lastDate.setDate(lastDate.getDate()-1));
+    var offsetDates = WEEK[firstDate.getDay()] - 1;
+    var lines = Math.ceil((lastDate.getDate() +offsetDates) / 7);
+
+    //日期单位高度
+    var dateHeight = (dateContainerHeight-lines + 1) / lines;
+    //日期单位宽度
+    var dateWidth  = (dateContainerWidth-20-14) / 7;
+    dateWidth = parseInt(dateWidth);
+    var dateHTML ='',
+        rowStyles;
+    var currentDate = new Date(date.getFullYear(),date.getMonth(),1);
+
+    //将起始日确定到星期一
+    currentDate= new Date(currentDate.setDate(currentDate.getDate()-offsetDates));
+
+
+    for(var i = 0; i < lines; i++) {
+
+      rowStyles = 'height:' + dateHeight + 'px;width:'+(dateContainerWidth-20)+'px;';
+
+      if(i == lines - 1){
+
+        rowStyles +="border-bottom:none;";
+
+      }
+
+      dateHTML += '<div class="' + rowClass + '" style="' + rowStyles + '">';
+
+      var styles;
+
+
+      var currentDay = WEEK[currentDate.getDay()];
+
+      for(var j = currentDay; j < 8; j++) {
+
+          styles = "position:relative;width:"+dateWidth+"px;height:" + (dateHeight-4) +"px;line-height:"+ dateHeight +"px;";
+
+          var hoverDivHTML ="";
+          var classes = dateClass;
+          if(currentDate.getMonth()!=date.getMonth()){
+
+            //不是当前月份的日期
+            styles += "background:none;color:#5c5c5c;"
+
+          } else {
+
+            hoverDivHTML=getHoverDivHTML(currentDate,dateWidth, dateHeight);
+            if(hoverDivHTML){
+              classes = "calendarSpecialDate " + classes;
+            }
+          }
+
+
+
+          dateHTML  +='<div style="' + styles + '" class="' + classes + '">'
+                    +'<div>'
+                    +     currentDate.getDate()
+                    +'</div>'
+                    + hoverDivHTML
+                    +' </div>';
+
+          currentDate.setDate(currentDate.getDate()+1);
+      }
+
+      dateHTML +='</div>';
+
+    }
+
+    return dateHTML;
 
   }
 

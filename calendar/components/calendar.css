@@ -43,6 +43,22 @@
 }
 /**************/
 
+
+/*日期部分的样式*/
+.dateContainer{
+  margin: 0 10px;
+}
+.dateRow{
+  border-bottom:1px solid #3a3a3a;
+  background-color: rgba(255,0,0,0.5);
+}
+.dateCell{
+  float:left;
+  text-align:center;
+  color:#ffffff;
+}
+/**************/
+
 .calendarTable{
   border:2px solid #bc191a;
   background-color: #242424;
